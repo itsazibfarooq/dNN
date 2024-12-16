@@ -50,7 +50,7 @@ This repository contains:
 If you find our work useful, please consider citing it in your research or projects. Use the following BibTeX entry:
 
 ```bibtex
-@article{author2024,
+@article{mddsDNN2025,
   title={Dataless Neural Network Models For Variants of Domination},
   author={Azib Farooq and Sangram K. Jena},
   journal={CPAIOR},
