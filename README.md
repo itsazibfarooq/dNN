@@ -2,8 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Authors**: [Azib Farooq](https://github.com/itsazibfarooq), [Sangram K. Jena](https://sites.google.com/view/sangramkishorjena/home)
-**Institution**: [Miami University]  
+**Authors**: [Azib Farooq](https://github.com/itsazibfarooq), [Sangram K. Jena](https://sites.google.com/view/sangramkishorjena/home)  
+**Institution**: Miami University  
 **Submitted In**: [CPAIOR], [2025]
 
 ---
