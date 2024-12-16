@@ -1,4 +1,4 @@
-# **[Dataless Neural Network Models For Variants of Domination]**
+# **Dataless Neural Network Models For Variants of Domination**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
