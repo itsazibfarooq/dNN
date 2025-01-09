@@ -34,26 +34,18 @@ class EarlyStopping:
 
 class DNNMDDS(Solver):
     """
-    A solver class for finding the Maximum Independent Set (MIS) of a graph using a
+    A solver class for finding the Minimum Disjunctive Dominating Set (MDDS) of a graph using a
     dataless neural network model. The neural network is trained to predict theta values
-    which are then used to determine the MIS.
-
-    Parameters:
-        G (networkx.Graph): The graph on which the MIS problem will be solved.
-        params (dict): Dictionary containing solver parameters:
-            - max_steps (int, optional): Maximum number of training steps for the model. Defaults to 100000.
-            - selection_criteria (float, optional): Threshold for selecting nodes based on theta values. Defaults to 0.5.
-            - learning_rate (float, optional): Learning rate for the optimizer. Defaults to 0.0001.
-            - use_cpu (bool, optional): Flag to use CPU for computations instead of GPU. Defaults to False.
+    which are then used to determine the MDDS.
     """
 
     def __init__(self, filename, params = {}):
         """
-        Initializes the DNNMIS solver with the given graph and parameters.
+        Initializes the DNNMDDS solver with the given graph and parameters.
 
         Args:
-            G (networkx.Graph): The graph to solve the MIS problem on.
-            params (dict): Parameters for the solver including max_steps, selection_criteria, learning_rate, and use_cpu.
+            filename: name of the file containing the networkx.Graph.
+            params (dict): Parameters for the solver including max_steps, selection_criteria, learning_rate, use_cpu, theta_init.
         """
         super().__init__()
         self.selection_criteria = params.get("selection_criteria", 0.5)
@@ -83,22 +75,7 @@ class DNNMDDS(Solver):
 
     def solve(self):
         """
-        Trains the neural network model to find the Maximum Independent Set (MIS) of the graph.
-
-        The method performs the following steps:
-        1. Trains the model for a specified number of steps.
-        2. Evaluates the model to get theta values.
-        3. Applies a selection criterion to determine which nodes are in the MIS.
-        4. Constructs the MIS by iteratively removing nodes with the highest degree from the subgraph.
-        5. Records the solution details including the graph mask, size of the MIS, and number of training steps.
-
-        Outputs:
-            - self.solution (dict): Contains the results of the MIS computation:
-                - graph_mask (list of int): List where 1s denote nodes in the MIS.
-                - graph_probabilities (list of float): Theta weight results for each node in the graph.
-                - size (int): Size of the MIS.
-                - number_of_steps (int): Number of training steps performed.
-                - steps_to_best_MIS (int): Number of steps to reach the best MIS (currently set to 0).
+        Trains the neural network model to find the Minimum Disjunctive Dominating Set (MDDS) of the graph.
         """
         device = torch.device("cuda:0" if torch.cuda.is_available() and not self.use_cpu else "cpu")
         print("using device: ", device)
@@ -155,15 +132,15 @@ class DNNMDDS(Solver):
 
             subgraph.remove_node(max_degree_nodes[0])
         IS_size = len(subgraph)
-        MIS_size = IS_size
-        MIS_mask = graph_mask
-        print(f"Found MDDS of size: {MIS_size}")
-        print(f"theta vector: {MIS_mask}")
+        MDDS_size = IS_size
+        MDDS_mask = graph_mask
+        print(f"Found MDDS of size: {MDDS_size}")
+        print(f"theta vector: {MDDS_mask}")
 
-        self.solution["graph_mask"] = MIS_mask
-        self.solution["size"] = MIS_size
+        self.solution["graph_mask"] = MDDS_mask
+        self.solution["size"] = MDDS_size
         self.solution["number_of_steps"] = i
-        self.solution["steps_to_best_MIS"] = 0
+        self.solution["steps_to_best_MDDS"] = 0
         self.solution['convergence_time'] = self.solution_time
 
         data = [{
